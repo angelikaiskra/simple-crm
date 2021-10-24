@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth');
             $table->string('login')->unique();
             $table->string('password');
+            $table->unsignedTinyInteger('access_level')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

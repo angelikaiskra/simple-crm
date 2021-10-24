@@ -23,6 +23,7 @@ class User extends Authenticatable
         'date_of_birth',
         'login',
         'password',
+        'access_level'
     ];
 
     /**
@@ -31,8 +32,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password'
+        'password',
+        'access_level'
     ];
+
+    public function getAccessLevel(): int {
+        return $this->access_level;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->access_level === 2;
+    }
 
     /**
      * The attributes that should be cast.

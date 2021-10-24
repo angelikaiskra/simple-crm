@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\AccessLevelRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
@@ -134,30 +135,30 @@ class UserController extends Controller
 //        ]);
 //    }
 
-//    /**
-//     * Access Level
-//     *
-//     * Access Level needed: 2<br>
-//     *
-//     * Change user's access level.<br>
-//     * Possible values: [0,1,2]<br>
-//     * 0 - user can not participate in any activity on website (ex. can not participate in quizzes)<br>
-//     * 1 - default value of access level, user can participate in normal activities<br>
-//     * 2 - highest value of access level, only for admins. Allows to create and manage quizzes.
-//     *
-//     * @urlParam user integer required Id of user in database
-//     *
-//     * @bodyParam access_level integer required value of access level. Example: 2
-//     *
-//     */
-//    public function changeAccessLevel(AccessLevelRequest $request, User $user) : JsonResponse
-//    {
-//        $user->update($request->validated());
-//
-//        return response()->json([
-//            "message" => "Pomyślnie zmieniono poziom dostępu"
-//        ]);
-//    }
+    /**
+     * Access Level
+     *
+     * Access Level needed: 2<br>
+     *
+     * Change user's access level.<br>
+     * Possible values: [1,2,3]<br>
+     * 1 - normal user<br>
+     * 2 - moderator<br>
+     * 3 - admin
+     *
+     * @urlParam user integer required Id of user in database
+     *
+     * @bodyParam access_level integer required value of access level. Example: 3
+     *
+     */
+    public function changeAccessLevel(AccessLevelRequest $request, User $user) : JsonResponse
+    {
+        $user->update($request->validated());
+
+        return response()->json([
+            "message" => "Pomyślnie zmieniono poziom dostępu"
+        ]);
+    }
 
 //    public function forgot(Request $request){
 //        $credentials = $request->validate(['email' => 'required|email']);
