@@ -1,15 +1,38 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {
+    HashRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
+import axios from './axios';
 
-require('./bootstrap');
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+import Users from "./Users";
 
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+function App() {
+    return (
+        <Router>
+            <Switch>
+                <Route path={"/login"}>
+                    <LoginForm/>
+                </Route>
+                <Route path={"/register"}>
+                    <RegisterForm />
+                </Route>
+                <Route path={"/"}>
+                    <Users />
+                </Route>
+            </Switch>
+        </Router>
+    );
+}
 
-require('./components/Example');
+export default App;
+
+if (document.getElementById('app')) {
+    ReactDOM.render(<App/>, document.getElementById('app'));
+}
+
+

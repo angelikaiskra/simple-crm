@@ -1,0 +1,46 @@
+.formWrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    width: 400px;
+    background-color: #fff;
+    border-radius: .25rem;
+    text-align: center;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, .2);
+
+    &__header {
+        font-size: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, .125);
+        padding: 1rem 2rem;
+    }
+
+    &__content {
+        padding: 0 2rem;
+
+        p {
+            padding: .5rem 0;
+        }
+
+        .p-inputgroup {
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    &__footer {
+        padding: 1.5rem 2rem 1rem;
+        text-align: right;
+        font-size: .875rem;
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: 700;
+        }
+    }
+}
