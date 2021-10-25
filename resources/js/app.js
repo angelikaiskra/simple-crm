@@ -19,10 +19,10 @@ function App() {
                     <LoginForm/>
                 </Route>
                 <Route path={"/register"}>
-                    <RegisterForm />
+                    <RegisterForm/>
                 </Route>
                 <Route path={"/"}>
-                    <Users />
+                    <Users/>
                 </Route>
             </Switch>
         </Router>
