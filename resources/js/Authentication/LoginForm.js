@@ -38,27 +38,32 @@ const LoginForm = (props) => {
     }
 
     return (
-        <div className={"formWrapper"}>
-            <div className={"form"}>
-                <div className={"form__header"}>
-                    <span>Simple<b>CRM</b></span>
-                </div>
+        <>
+            <Toast ref={toast}/>
+            <div className={"formWrapper"}>
+                <form className={"form"}>
+                    <div className={"form__header"}>
+                        <span>Simple<b>CRM</b></span>
+                    </div>
 
-                <div className={"form__content"}>
-                    <p>Sign in to start your session</p>
+                    <div className={"form__content"}>
+                        <p>Sign in to start your session</p>
 
                     <div className="p-inputgroup">
                         <InputText value={login} onChange={(e) => setLogin(e.target.value)} placeholder={"Login"} required />
                         <span className="p-inputgroup-addon">
                             <i className="pi pi-user"></i>
                         </span>
-                    </div>
+                        </div>
 
                     <div className="p-inputgroup">
                         <InputText value={password} onChange={(e) => setPassword(e.target.value)} placeholder={"Password"} type={"password"} required />
                         <span className="p-inputgroup-addon">
                             <i className="pi pi-lock"></i>
                         </span>
+                        </div>
+
+                        <Button label={"Sign in"} onClick={(e) => onLoginClicked(e)}/>
                     </div>
 
                     <Button label={"Sign in"} onClick={(e) => onLoginClicked(e)} />
@@ -68,7 +73,7 @@ const LoginForm = (props) => {
                     <span>Don’t have an account? </span><Link to="/register">Register</Link>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
