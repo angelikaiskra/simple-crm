@@ -4,6 +4,7 @@ import {Link, Redirect} from "react-router-dom";
 import {InputText} from 'primereact/inputtext';
 import {Button} from "primereact/button";
 import {showError, showMessage} from "../Helpers/helpers";
+import {Toast} from "primereact/toast";
 
 const LoginForm = (props) => {
 
@@ -49,29 +50,29 @@ const LoginForm = (props) => {
                     <div className={"form__content"}>
                         <p>Sign in to start your session</p>
 
-                    <div className="p-inputgroup">
-                        <InputText value={login} onChange={(e) => setLogin(e.target.value)} placeholder={"Login"} required />
-                        <span className="p-inputgroup-addon">
+                        <div className="p-inputgroup">
+                            <InputText value={login} onChange={(e) => setLogin(e.target.value)} placeholder={"Login"}
+                                       required/>
+                            <span className="p-inputgroup-addon">
                             <i className="pi pi-user"></i>
                         </span>
                         </div>
 
-                    <div className="p-inputgroup">
-                        <InputText value={password} onChange={(e) => setPassword(e.target.value)} placeholder={"Password"} type={"password"} required />
-                        <span className="p-inputgroup-addon">
+                        <div className="p-inputgroup">
+                            <InputText value={password} onChange={(e) => setPassword(e.target.value)}
+                                       placeholder={"Password"} type={"password"} required/>
+                            <span className="p-inputgroup-addon">
                             <i className="pi pi-lock"></i>
                         </span>
                         </div>
-
-                        <Button label={"Sign in"} onClick={(e) => onLoginClicked(e)}/>
                     </div>
 
-                    <Button label={"Sign in"} onClick={(e) => onLoginClicked(e)} />
-                </div>
+                    <Button label={"Sign in"} onClick={(e) => onLoginClicked(e)}/>
+                    <div className={"form__footer"}>
+                        <span>Don’t have an account? </span><Link to="/register">Register</Link>
+                    </div>
+                </form>
 
-                <div className={"form__footer"}>
-                    <span>Don’t have an account? </span><Link to="/register">Register</Link>
-                </div>
             </div>
         </>
     );
