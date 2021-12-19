@@ -1,10 +1,12 @@
-import React, {useRef, useState} from 'react';
-import {Link, useHistory} from "react-router-dom";
+import React, {useState, useEffect} from 'react';
+import {Link} from "react-router-dom";
 
 import {InputText} from 'primereact/inputtext';
 import {Calendar} from 'primereact/calendar';
 import {Button} from "primereact/button";
 import {Toast} from "primereact/toast";
+
+import {showError, showSuccess} from "../Helpers/helpers";
 
 const RegisterForm = (props) => {
 
@@ -15,8 +17,10 @@ const RegisterForm = (props) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const toast = useRef();
-    const history = useHistory();
+    useEffect(() => {
+        if (localStorage.getItem("token"))
+            props.history.push('/users');
+    }, []);
 
     const onRegisterClicked = (e) => {
         e.preventDefault();
@@ -30,19 +34,15 @@ const RegisterForm = (props) => {
             "login": login,
             "password": password,
             "password_confirmation": confirmPassword
+
         }).then((res) => {
-            toast.current.show({severity: 'success', summary: "Success", detail: res.data.message, life: 3000})
-            history.push('/login')
+            console.log(res);
+            showSuccess(res);
+            props.history.push('/login');
 
         }).catch((e) => {
-            Object.keys(e.response.data.errors).map(function (key, index) {
-                toast.current.show({
-                    severity: 'error',
-                    summary: e.response.data.message,
-                    detail: e.response.data.errors[key],
-                    life: 3000
-                })
-            });
+            console.log(e.response);
+            showError(e.response);
         })
     }
 

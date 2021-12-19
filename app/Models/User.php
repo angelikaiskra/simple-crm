@@ -32,8 +32,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'access_level'
+        'password'
     ];
 
     public function getAccessLevel(): int {

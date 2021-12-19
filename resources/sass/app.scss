@@ -4,10 +4,20 @@
 @import "~primereact/resources/themes/saga-blue/theme.css";
 @import "~primereact/resources/primereact.min.css";
 @import "~primeicons/primeicons.css";
+@import "~primeflex/primeflex.css";
+
+@font-face {
+    font-family: 'primeicons';
+    font-display: auto;
+    src: url('/UAM/simple-crm/public/fonts/vendor/primeicons/primeicons.eot');
+    src: url('/UAM/simple-crm/public/fonts/vendor/primeicons/primeicons.eot?#iefix') format('embedded-opentype'), url('/UAM/simple-crm/public/fonts/vendor/primeicons/primeicons.ttf') format('truetype'), url('/UAM/simple-crm/public/fonts/vendor/primeicons/primeicons.woff') format('woff'), url('/UAM/simple-crm/public/fonts/vendor/primeicons/primeicons.svg?#primeicons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 @import "base";
-
 @import 'variables';
-
 @import "forms";
+@import "layout";
 
+@import "header";

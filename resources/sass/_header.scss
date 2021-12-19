@@ -1,0 +1,43 @@
+.Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343A40;
+    color: #fff;
+    padding: 20px;
+
+    &__logo {
+        display: block;
+        width: 200px;
+        height: 35px;
+        background-repeat: no-repeat;
+        background-image: url("/UAM/simple-crm/public/assets/logo.svg");
+    }
+
+    &__menu {
+        display: flex;
+    }
+
+    &__links {
+        margin-right: 80px;
+
+        a {
+            margin-right: 30px;
+            color: #fff;
+
+            &:hover {
+                color: #d9d9d9;
+            }
+        }
+    }
+
+    &__logout {
+        span {
+            margin-right: 10px;
+        }
+
+        i {
+            color: #fff;
+        }
+    }
+}
