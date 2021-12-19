@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import ReactDOM from 'react-dom';
 import {
     HashRouter as Router,
@@ -7,25 +7,30 @@ import {
 } from "react-router-dom";
 import axios from './axios';
 
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
-import Users from "./Users";
+import LoginForm from "./Authentication/LoginForm";
+import RegisterForm from "./Authentication/RegisterForm";
+import Users from "./Pages/Users";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import {Toast} from 'primereact/toast';
+import ProtectedRoute from "./Helpers/ProtectedRoute";
 
 function App() {
+    const toast = useRef(null);
+    window.toast = toast;
+
     return (
-        <Router>
-            <Switch>
-                <Route path={"/login"}>
-                    <LoginForm/>
-                </Route>
-                <Route path={"/register"}>
-                    <RegisterForm />
-                </Route>
-                <Route path={"/"}>
-                    <Users />
-                </Route>
-            </Switch>
-        </Router>
+        <>
+            <Toast ref={toast}/>
+            <Router>
+                <Switch>
+                    <Route path={"/login"} component={LoginForm} />
+                    <Route path={"/register"} component={RegisterForm} />
+                    <ProtectedRoute path={"/users"} component={Users} />
+                </Switch>
+            </Router>
+        </>
     );
 }
 

@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 
 import {InputText} from 'primereact/inputtext';
-import { Calendar } from 'primereact/calendar';
+import {Calendar} from 'primereact/calendar';
 import {Button} from "primereact/button";
 
-const RegisterForm = () => {
+import {showError, showSuccess} from "../Helpers/helpers";
+
+const RegisterForm = (props) => {
 
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -13,6 +15,11 @@ const RegisterForm = () => {
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    useEffect(() => {
+        if (localStorage.getItem("token"))
+            props.history.push('/users');
+    }, []);
 
     const onRegisterClicked = (e) => {
         e.preventDefault();
@@ -26,10 +33,15 @@ const RegisterForm = () => {
             "login": login,
             "password": password,
             "password_confirmation": confirmPassword
+
         }).then((res) => {
-            console.log(res)
+            console.log(res);
+            showSuccess(res);
+            props.history.push('/login');
+
         }).catch((e) => {
-            console.log(e)
+            console.log(e.response);
+            showError(e.response);
         })
     }
 

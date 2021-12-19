@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,7 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory(20)->create();
+         User::factory()->count(1)->create([
+             'login' => 'admin',
+             'access_level' => 3
+         ]);
+        User::factory()->count(50)->create();
 
         $this->call([
             CompanySeeder::class,
