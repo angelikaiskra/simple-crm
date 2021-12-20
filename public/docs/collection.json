@@ -1,0 +1,642 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "localhost"
+        }
+    ],
+    "info": {
+        "name": "Laravel",
+        "_postman_id": "b0737011-04e2-403d-a6cc-22c6d3acf3f8",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authorization managment",
+            "description": "\nAPI's for login, register and logout in basic way",
+            "item": [
+                {
+                    "name": "Register user",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/register",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"login\":\"PrettyWoman\",\"name\":\"Adam\",\"surname\":\"Kowalski\",\"date_of_birth\":\"2000-10-10\",\"password\":\"password\",\"password_confirmation\":\"password\"}"
+                        },
+                        "description": "This endpoint allows you to register a user in standard way using an email",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n  \"message\": \"Pomy\u015blnie zarejestrowano u\u017cytkownika\",\n  \"data\": {\n        \"id\": 54\n  }\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Login user",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/login",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"login\":\"creptwpendqcewysmfmjgoobaiwhgqtchwjxucikzsokzhnxbyldozixrdhbnnvwayrbyyrlevlcujbpvexpctqtqqgkiajbfovdxyqlepycufwvwrlxgntimtzjakiefrfcezonjyhhbsaejmvfireehoebvmqqjafsomkbawxzntmhzwwrgifwgrqwirojnumjpmenfyovypydlwxpgrhklceqntipabwctkniifi\",\"password\":\"password\",\"email\":\"definetly@not.admin\"}"
+                        },
+                        "description": "This endpoint allows you to login a user in a standard way using an email",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n\"data\": {\n\"user\": {\n\"id\": 54,\n\"name\": \"Angelika\",\n\"surname\": \"Iskra\",\n\"date_of_birth\": \"2000-10-27\",\n\"login\": \"admin123456\",\n\"deleted_at\": null,\n\"created_at\": \"2021-12-20T13:38:00.000000Z\",\n\"updated_at\": \"2021-12-20T13:38:00.000000Z\",\n\"role\": \"user\",\n\"roles\": [\n{\n\"id\": 1,\n\"name\": \"user\",\n\"guard_name\": \"web\",\n\"created_at\": \"2021-12-20T13:08:58.000000Z\",\n\"updated_at\": \"2021-12-20T13:08:58.000000Z\",\n\"pivot\": {\n\"model_id\": 54,\n\"role_id\": 1,\n\"model_type\": \"App\\\\Models\\\\User\"\n}\n}\n]\n},\n\"token\": \"6|sBlAGXIEO3cWkW4cxSUwOgNJzFTIJRAMnlJXTkmz\"\n}\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Logouts user",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n\"message\": \"Pomy\u015blnie wylogowano\"\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Company Managment",
+            "description": "",
+            "item": [
+                {
+                    "name": "api\/companies",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/companies",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "10",
+                                    "description": "Non required field",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/companies?page=10"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"\",\n    \"exception\": \"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\NotFoundHttpException\",\n    \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\AbstractRouteCollection.php\",\n    \"line\": 43,\n    \"trace\": [\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\RouteCollection.php\",\n            \"line\": 162,\n            \"function\": \"handleMatchedRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\AbstractRouteCollection\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 647,\n            \"function\": \"match\",\n            \"class\": \"Illuminate\\\\Routing\\\\RouteCollection\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 636,\n            \"function\": \"findRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 625,\n            \"function\": \"dispatchToRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 166,\n            \"function\": \"dispatch\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 128,\n            \"function\": \"Illuminate\\\\Foundation\\\\Http\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\n            \"line\": 21,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull.php\",\n            \"line\": 31,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\n            \"line\": 21,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings.php\",\n            \"line\": 40,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize.php\",\n            \"line\": 27,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance.php\",\n            \"line\": 86,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\fruitcake\\\\laravel-cors\\\\src\\\\HandleCors.php\",\n            \"line\": 38,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Fruitcake\\\\Cors\\\\HandleCors\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Http\\\\Middleware\\\\TrustProxies.php\",\n            \"line\": 39,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Http\\\\Middleware\\\\TrustProxies\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 103,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 141,\n            \"function\": \"then\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 110,\n            \"function\": \"sendRequestThroughRouter\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 299,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 287,\n            \"function\": \"callLaravelOrLumenRoute\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 89,\n            \"function\": \"makeApiCall\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 45,\n            \"function\": \"makeResponseCall\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 35,\n            \"function\": \"makeResponseCallIfConditionsPass\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 222,\n            \"function\": \"__invoke\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 179,\n            \"function\": \"iterateThroughStrategies\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 116,\n            \"function\": \"fetchResponses\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 117,\n            \"function\": \"processRoute\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 75,\n            \"function\": \"extractEndpointsInfoFromLaravelApp\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 51,\n            \"function\": \"extractEndpointsInfoAndWriteToDisk\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Commands\\\\GenerateDocumentation.php\",\n            \"line\": 48,\n            \"function\": \"get\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 36,\n            \"function\": \"handle\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Commands\\\\GenerateDocumentation\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\Util.php\",\n            \"line\": 40,\n            \"function\": \"Illuminate\\\\Container\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 93,\n            \"function\": \"unwrapIfClosure\",\n            \"class\": \"Illuminate\\\\Container\\\\Util\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 37,\n            \"function\": \"callBoundMethod\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\Container.php\",\n            \"line\": 653,\n            \"function\": \"call\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Command.php\",\n            \"line\": 136,\n            \"function\": \"call\",\n            \"class\": \"Illuminate\\\\Container\\\\Container\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Command\\\\Command.php\",\n            \"line\": 299,\n            \"function\": \"execute\",\n            \"class\": \"Illuminate\\\\Console\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Command.php\",\n            \"line\": 121,\n            \"function\": \"run\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Command\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 978,\n            \"function\": \"run\",\n            \"class\": \"Illuminate\\\\Console\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 295,\n            \"function\": \"doRunCommand\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 167,\n            \"function\": \"doRun\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Application.php\",\n            \"line\": 94,\n            \"function\": \"run\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Console\\\\Kernel.php\",\n            \"line\": 129,\n            \"function\": \"run\",\n            \"class\": \"Illuminate\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\artisan\",\n            \"line\": 37,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Console\\\\Kernel\",\n            \"type\": \"->\"\n        }\n    ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Store single company",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/company",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/company"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Stettiner\",\"nip\":\"1060000062\",\"address\":\"10 Wolfgang Street\",\"city\":\"Szczecin\",\"creator_id\":15}"
+                        },
+                        "description": "Access Level needed: 2<br>\n\nAdds company to database"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "api\/company\/{id}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/company\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/company\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "19",
+                                    "description": "The ID of the company."
+                                },
+                                {
+                                    "id": "companyId",
+                                    "key": "companyId",
+                                    "value": "15",
+                                    "description": "Id of the company in database"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"\",\n    \"exception\": \"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\NotFoundHttpException\",\n    \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\AbstractRouteCollection.php\",\n    \"line\": 43,\n    \"trace\": [\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\RouteCollection.php\",\n            \"line\": 162,\n            \"function\": \"handleMatchedRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\AbstractRouteCollection\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 647,\n            \"function\": \"match\",\n            \"class\": \"Illuminate\\\\Routing\\\\RouteCollection\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 636,\n            \"function\": \"findRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 625,\n            \"function\": \"dispatchToRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 166,\n            \"function\": \"dispatch\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 128,\n            \"function\": \"Illuminate\\\\Foundation\\\\Http\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\n            \"line\": 21,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull.php\",\n            \"line\": 31,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\n            \"line\": 21,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings.php\",\n            \"line\": 40,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize.php\",\n            \"line\": 27,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance.php\",\n            \"line\": 86,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\fruitcake\\\\laravel-cors\\\\src\\\\HandleCors.php\",\n            \"line\": 38,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Fruitcake\\\\Cors\\\\HandleCors\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Http\\\\Middleware\\\\TrustProxies.php\",\n            \"line\": 39,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Http\\\\Middleware\\\\TrustProxies\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 103,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 141,\n            \"function\": \"then\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 110,\n            \"function\": \"sendRequestThroughRouter\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 299,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 287,\n            \"function\": \"callLaravelOrLumenRoute\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 89,\n            \"function\": \"makeApiCall\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 45,\n            \"function\": \"makeResponseCall\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 35,\n            \"function\": \"makeResponseCallIfConditionsPass\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 222,\n            \"function\": \"__invoke\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 179,\n            \"function\": \"iterateThroughStrategies\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 116,\n            \"function\": \"fetchResponses\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 117,\n            \"function\": \"processRoute\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 75,\n            \"function\": \"extractEndpointsInfoFromLaravelApp\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 51,\n            \"function\": \"extractEndpointsInfoAndWriteToDisk\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Commands\\\\GenerateDocumentation.php\",\n            \"line\": 48,\n            \"function\": \"get\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 36,\n            \"function\": \"handle\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Commands\\\\GenerateDocumentation\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\Util.php\",\n            \"line\": 40,\n            \"function\": \"Illuminate\\\\Container\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 93,\n            \"function\": \"unwrapIfClosure\",\n            \"class\": \"Illuminate\\\\Container\\\\Util\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 37,\n            \"function\": \"callBoundMethod\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\Container.php\",\n            \"line\": 653,\n            \"function\": \"call\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Command.php\",\n            \"line\": 136,\n            \"function\": \"call\",\n            \"class\": \"Illuminate\\\\Container\\\\Container\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Command\\\\Command.php\",\n            \"line\": 299,\n            \"function\": \"execute\",\n            \"class\": \"Illuminate\\\\Console\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Command.php\",\n            \"line\": 121,\n            \"function\": \"run\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Command\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 978,\n            \"function\": \"run\",\n            \"class\": \"Illuminate\\\\Console\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 295,\n            \"function\": \"doRunCommand\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 167,\n            \"function\": \"doRun\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Application.php\",\n            \"line\": 94,\n            \"function\": \"run\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Console\\\\Kernel.php\",\n            \"line\": 129,\n            \"function\": \"run\",\n            \"class\": \"Illuminate\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\artisan\",\n            \"line\": 37,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Console\\\\Kernel\",\n            \"type\": \"->\"\n        }\n    ]\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update single company",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/company\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/company\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "15",
+                                    "description": "The ID of the company."
+                                },
+                                {
+                                    "id": "company",
+                                    "key": "company",
+                                    "value": "4",
+                                    "description": "Id of company in database"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Stettiner\",\"nip\":\"1060000062\",\"address\":\"10 Wolfgang Street\",\"city\":\"Szczecin\",\"creator_id\":5}"
+                        },
+                        "description": "Access Level needed: 2<br>\n\nUpdates company's columns find by id"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete single company",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/company\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/company\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "6",
+                                    "description": "The ID of the company."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Access Level needed: 2<br>\n\nRemove specified reward from database.\nMay throw ModelNotFoundException if reward is not in database."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "api\/user",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/user"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"\",\n    \"exception\": \"Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\NotFoundHttpException\",\n    \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\AbstractRouteCollection.php\",\n    \"line\": 43,\n    \"trace\": [\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\RouteCollection.php\",\n            \"line\": 162,\n            \"function\": \"handleMatchedRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\AbstractRouteCollection\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 647,\n            \"function\": \"match\",\n            \"class\": \"Illuminate\\\\Routing\\\\RouteCollection\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 636,\n            \"function\": \"findRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n            \"line\": 625,\n            \"function\": \"dispatchToRoute\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 166,\n            \"function\": \"dispatch\",\n            \"class\": \"Illuminate\\\\Routing\\\\Router\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 128,\n            \"function\": \"Illuminate\\\\Foundation\\\\Http\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\n            \"line\": 21,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull.php\",\n            \"line\": 31,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\n            \"line\": 21,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings.php\",\n            \"line\": 40,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize.php\",\n            \"line\": 27,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance.php\",\n            \"line\": 86,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\fruitcake\\\\laravel-cors\\\\src\\\\HandleCors.php\",\n            \"line\": 38,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Fruitcake\\\\Cors\\\\HandleCors\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Http\\\\Middleware\\\\TrustProxies.php\",\n            \"line\": 39,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 167,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Http\\\\Middleware\\\\TrustProxies\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n            \"line\": 103,\n            \"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 141,\n            \"function\": \"then\",\n            \"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n            \"line\": 110,\n            \"function\": \"sendRequestThroughRouter\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 299,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 287,\n            \"function\": \"callLaravelOrLumenRoute\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 89,\n            \"function\": \"makeApiCall\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 45,\n            \"function\": \"makeResponseCall\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls.php\",\n            \"line\": 35,\n            \"function\": \"makeResponseCallIfConditionsPass\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 222,\n            \"function\": \"__invoke\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Strategies\\\\Responses\\\\ResponseCalls\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 179,\n            \"function\": \"iterateThroughStrategies\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Extracting\\\\Extractor.php\",\n            \"line\": 116,\n            \"function\": \"fetchResponses\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 117,\n            \"function\": \"processRoute\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Extracting\\\\Extractor\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 75,\n            \"function\": \"extractEndpointsInfoFromLaravelApp\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp.php\",\n            \"line\": 51,\n            \"function\": \"extractEndpointsInfoAndWriteToDisk\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\knuckleswtf\\\\scribe\\\\src\\\\Commands\\\\GenerateDocumentation.php\",\n            \"line\": 48,\n            \"function\": \"get\",\n            \"class\": \"Knuckles\\\\Scribe\\\\GroupedEndpoints\\\\GroupedEndpointsFromApp\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 36,\n            \"function\": \"handle\",\n            \"class\": \"Knuckles\\\\Scribe\\\\Commands\\\\GenerateDocumentation\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\Util.php\",\n            \"line\": 40,\n            \"function\": \"Illuminate\\\\Container\\\\{closure}\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 93,\n            \"function\": \"unwrapIfClosure\",\n            \"class\": \"Illuminate\\\\Container\\\\Util\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\BoundMethod.php\",\n            \"line\": 37,\n            \"function\": \"callBoundMethod\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Container\\\\Container.php\",\n            \"line\": 653,\n            \"function\": \"call\",\n            \"class\": \"Illuminate\\\\Container\\\\BoundMethod\",\n            \"type\": \"::\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Command.php\",\n            \"line\": 136,\n            \"function\": \"call\",\n            \"class\": \"Illuminate\\\\Container\\\\Container\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Command\\\\Command.php\",\n            \"line\": 299,\n            \"function\": \"execute\",\n            \"class\": \"Illuminate\\\\Console\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Command.php\",\n            \"line\": 121,\n            \"function\": \"run\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Command\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 978,\n            \"function\": \"run\",\n            \"class\": \"Illuminate\\\\Console\\\\Command\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 295,\n            \"function\": \"doRunCommand\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\symfony\\\\console\\\\Application.php\",\n            \"line\": 167,\n            \"function\": \"doRun\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Console\\\\Application.php\",\n            \"line\": 94,\n            \"function\": \"run\",\n            \"class\": \"Symfony\\\\Component\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Console\\\\Kernel.php\",\n            \"line\": 129,\n            \"function\": \"run\",\n            \"class\": \"Illuminate\\\\Console\\\\Application\",\n            \"type\": \"->\"\n        },\n        {\n            \"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\artisan\",\n            \"line\": 37,\n            \"function\": \"handle\",\n            \"class\": \"Illuminate\\\\Foundation\\\\Console\\\\Kernel\",\n            \"type\": \"->\"\n        }\n    ]\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "User Management",
+            "description": "",
+            "item": [
+                {
+                    "name": "Current user",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/me",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/user\/me"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "User roles: user, moderator, admin<br>\n\nDisplay currently logged in user.<br>"
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n\"data\": {\n\"id\": 2,\n\"name\": \"Trycia\",\n\"surname\": \"Parisian\",\n\"date_of_birth\": \"2009-02-04\",\n\"login\": \"admin\",\n\"role\": \"admin\"\n}\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Returns a list of users",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "10",
+                                    "description": "Non required field - self explanatory",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "7",
+                                    "description": "Non required field - self explanatory",
+                                    "disabled": false
+                                }
+                            ],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/users?page=10&limit=7"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "User roles: user, moderator, admin<br>\n\nDisplay a paginated(by 20) listing of the users.<br>"
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n\"data\": [\n{\n\"id\": 1,\n\"name\": \"Amir\",\n\"surname\": \"Sauer\",\n\"date_of_birth\": \"2012-11-05\",\n\"login\": \"moderator\",\n\"role\": \"moderator\"\n},\n{\n\"id\": 2,\n\"name\": \"Trycia\",\n\"surname\": \"Parisian\",\n\"date_of_birth\": \"2009-02-04\",\n\"login\": \"admin\",\n\"role\": \"admin\"\n},\n{\n\"id\": 3,\n\"name\": \"Holie\",\n\"surname\": \"Romaguera\",\n\"date_of_birth\": \"1998-10-11\",\n\"login\": \"boehm.serena\",\n\"role\": \"user\"\n},\n{\n\"id\": 4,\n\"name\": \"Myrna\",\n\"surname\": \"Yost\",\n\"date_of_birth\": \"1984-09-15\",\n\"login\": \"vschneider\",\n\"role\": \"user\"\n},\n{\n\"id\": 5,\n\"name\": \"Edison\",\n\"surname\": \"Ritchie\",\n\"date_of_birth\": \"2003-07-05\",\n\"login\": \"rschmeler\",\n\"role\": \"user\"\n},\n{\n\"id\": 6,\n\"name\": \"Tyrel\",\n\"surname\": \"Schimmel\",\n\"date_of_birth\": \"1992-10-24\",\n\"login\": \"emory76\",\n\"role\": \"user\"\n},\n{\n\"id\": 7,\n\"name\": \"Kiel\",\n\"surname\": \"Rutherford\",\n\"date_of_birth\": \"1990-02-24\",\n\"login\": \"lakin.hallie\",\n\"role\": \"user\"\n},\n{\n\"id\": 8,\n\"name\": \"Arlene\",\n\"surname\": \"Weimann\",\n\"date_of_birth\": \"1970-03-04\",\n\"login\": \"wisoky.gillian\",\n\"role\": \"user\"\n},\n{\n\"id\": 9,\n\"name\": \"Deborah\",\n\"surname\": \"Murazik\",\n\"date_of_birth\": \"2012-03-08\",\n\"login\": \"llebsack\",\n\"role\": \"user\"\n},\n{\n\"id\": 10,\n\"name\": \"Gerhard\",\n\"surname\": \"Mayer\",\n\"date_of_birth\": \"2015-08-04\",\n\"login\": \"athena94\",\n\"role\": \"user\"\n},\n{\n\"id\": 11,\n\"name\": \"Evans\",\n\"surname\": \"Dooley\",\n\"date_of_birth\": \"1978-01-29\",\n\"login\": \"roy25\",\n\"role\": \"user\"\n},\n{\n\"id\": 12,\n\"name\": \"Caroline\",\n\"surname\": \"Mante\",\n\"date_of_birth\": \"2020-06-17\",\n\"login\": \"bcollins\",\n\"role\": \"user\"\n},\n{\n\"id\": 13,\n\"name\": \"Francis\",\n\"surname\": \"Schiller\",\n\"date_of_birth\": \"1991-09-28\",\n\"login\": \"torey65\",\n\"role\": \"user\"\n},\n{\n\"id\": 14,\n\"name\": \"Dina\",\n\"surname\": \"Dietrich\",\n\"date_of_birth\": \"1986-03-05\",\n\"login\": \"ilehner\",\n\"role\": \"user\"\n},\n{\n\"id\": 15,\n\"name\": \"Dexter\",\n\"surname\": \"Bruen\",\n\"date_of_birth\": \"2006-02-08\",\n\"login\": \"bstamm\",\n\"role\": \"user\"\n},\n{\n\"id\": 16,\n\"name\": \"Vivian\",\n\"surname\": \"Braun\",\n\"date_of_birth\": \"1981-08-22\",\n\"login\": \"jakubowski.richie\",\n\"role\": \"user\"\n},\n{\n\"id\": 17,\n\"name\": \"Palma\",\n\"surname\": \"Schneider\",\n\"date_of_birth\": \"1983-05-25\",\n\"login\": \"glover.johnnie\",\n\"role\": \"user\"\n},\n{\n\"id\": 18,\n\"name\": \"Noe\",\n\"surname\": \"Larson\",\n\"date_of_birth\": \"1989-10-28\",\n\"login\": \"kling.berry\",\n\"role\": \"user\"\n},\n{\n\"id\": 19,\n\"name\": \"Charity\",\n\"surname\": \"Adams\",\n\"date_of_birth\": \"1977-09-24\",\n\"login\": \"veichmann\",\n\"role\": \"user\"\n},\n{\n\"id\": 20,\n\"name\": \"Cayla\",\n\"surname\": \"Leffler\",\n\"date_of_birth\": \"1984-08-28\",\n\"login\": \"raegan73\",\n\"role\": \"user\"\n}\n],\n\"links\": {\n\"first\": \"http:\/\/localhost\/UAM\/simple-crm\/public\/api\/users?page=1\",\n\"last\": \"http:\/\/localhost\/UAM\/simple-crm\/public\/api\/users?page=3\",\n\"prev\": null,\n\"next\": \"http:\/\/localhost\/UAM\/simple-crm\/public\/api\/users?page=2\"\n},\n\"meta\": {\n\"current_page\": 1,\n\"from\": 1,\n\"last_page\": 3,\n\"links\": [\n{\n\"url\": null,\n\"label\": \"&laquo; Previous\",\n\"active\": false\n},\n{\n\"url\": \"http:\/\/localhost\/UAM\/simple-crm\/public\/api\/users?page=1\",\n\"label\": \"1\",\n\"active\": true\n},\n{\n\"url\": \"http:\/\/localhost\/UAM\/simple-crm\/public\/api\/users?page=2\",\n\"label\": \"2\",\n\"active\": false\n},\n{\n\"url\": \"http:\/\/localhost\/UAM\/simple-crm\/public\/api\/users?page=3\",\n\"label\": \"3\",\n\"active\": false\n},\n{\n\"url\": \"http:\/\/localhost\/UAM\/simple-crm\/public\/api\/users?page=2\",\n\"label\": \"Next &raquo;\",\n\"active\": false\n}\n],\n\"path\": \"http:\/\/localhost\/UAM\/simple-crm\/public\/api\/users\",\n\"per_page\": 20,\n\"to\": 20,\n\"total\": 54\n}\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Return single user\n\nUser roles: user, moderator, admin<br>\n\nDisplay the specified user by id.<br>",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/:user",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/user\/:user",
+                            "variable": [
+                                {
+                                    "id": "user",
+                                    "key": "user",
+                                    "value": "6",
+                                    "description": "Id of user in database"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": ""
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n\"data\": {\n\"id\": 2,\n\"name\": \"Trycia\",\n\"surname\": \"Parisian\",\n\"date_of_birth\": \"2009-02-04\",\n\"login\": \"admin\",\n\"role\": \"admin\"\n}\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Update single user",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/user\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "11",
+                                    "description": "The ID of the user."
+                                },
+                                {
+                                    "id": "user",
+                                    "key": "user",
+                                    "value": "3",
+                                    "description": "Id of user in database"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\":\"Adam\",\"surname\":\"Kowalski\",\"date_of_birth\":\"2000-10-10\",\"role\":\"moderator\"}"
+                        },
+                        "description": "User roles: moderator, admin<br>\n\nUpdates user's columns find by id"
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\n\"message\": \"Pomy\u015blnie zaktualizowano u\u017cytkownika\",\n\"data\": {\n\"id\": 3,\n\"name\": \"Holie\",\n\"surname\": \"Romaguera\",\n\"date_of_birth\": \"1998-10-11\",\n\"login\": \"boehm.serena\",\n\"deleted_at\": null,\n\"created_at\": \"2021-12-20T13:09:01.000000Z\",\n\"updated_at\": \"2021-12-20T13:09:48.000000Z\"\n}\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Delete single user",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/:id",
+                            "query": [],
+                            "raw": "http:\/\/{{baseUrl}}\/api\/user\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "9",
+                                    "description": "The ID of the user."
+                                },
+                                {
+                                    "id": "user",
+                                    "key": "user",
+                                    "value": "1",
+                                    "description": "Id of user in database"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "User roles: admin<br>\n\nRemove the specified user from database.\nMay throw ModelNotFoundException if user's is not in database"
+                    },
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n\"message\": \"Pomy\u015blnie usuni\u0119to u\u017cytkownika\"\n}",
+                            "name": ""
+                        },
+                        {
+                            "header": [],
+                            "code": 403,
+                            "body": "{\n\"message\": \"User does not have the right roles.\",\n\"exception\": \"Spatie\\\\Permission\\\\Exceptions\\\\UnauthorizedException\",\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\spatie\\\\laravel-permission\\\\src\\\\Exceptions\\\\UnauthorizedException.php\",\n\"line\": 22,\n\"trace\": [\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\spatie\\\\laravel-permission\\\\src\\\\Middlewares\\\\RoleMiddleware.php\",\n\"line\": 24,\n\"function\": \"forRoles\",\n\"class\": \"Spatie\\\\Permission\\\\Exceptions\\\\UnauthorizedException\",\n\"type\": \"::\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Spatie\\\\Permission\\\\Middlewares\\\\RoleMiddleware\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Middleware\\\\SubstituteBindings.php\",\n\"line\": 50,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Routing\\\\Middleware\\\\SubstituteBindings\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests.php\",\n\"line\": 127,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests.php\",\n\"line\": 103,\n\"function\": \"handleRequest\",\n\"class\": \"Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests.php\",\n\"line\": 55,\n\"function\": \"handleRequestUsingNamedLimiter\",\n\"class\": \"Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Routing\\\\Middleware\\\\ThrottleRequests\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Auth\\\\Middleware\\\\Authenticate.php\",\n\"line\": 44,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Auth\\\\Middleware\\\\Authenticate\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\sanctum\\\\src\\\\Http\\\\Middleware\\\\EnsureFrontendRequestsAreStateful.php\",\n\"line\": 33,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 128,\n\"function\": \"Laravel\\\\Sanctum\\\\Http\\\\Middleware\\\\{closure}\",\n\"class\": \"Laravel\\\\Sanctum\\\\Http\\\\Middleware\\\\EnsureFrontendRequestsAreStateful\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 103,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\sanctum\\\\src\\\\Http\\\\Middleware\\\\EnsureFrontendRequestsAreStateful.php\",\n\"line\": 34,\n\"function\": \"then\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Laravel\\\\Sanctum\\\\Http\\\\Middleware\\\\EnsureFrontendRequestsAreStateful\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 103,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n\"line\": 697,\n\"function\": \"then\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n\"line\": 672,\n\"function\": \"runRouteWithinStack\",\n\"class\": \"Illuminate\\\\Routing\\\\Router\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n\"line\": 636,\n\"function\": \"runRoute\",\n\"class\": \"Illuminate\\\\Routing\\\\Router\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Routing\\\\Router.php\",\n\"line\": 625,\n\"function\": \"dispatchToRoute\",\n\"class\": \"Illuminate\\\\Routing\\\\Router\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n\"line\": 166,\n\"function\": \"dispatch\",\n\"class\": \"Illuminate\\\\Routing\\\\Router\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 128,\n\"function\": \"Illuminate\\\\Foundation\\\\Http\\\\{closure}\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\n\"line\": 21,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull.php\",\n\"line\": 31,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ConvertEmptyStringsToNull\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest.php\",\n\"line\": 21,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings.php\",\n\"line\": 40,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TransformsRequest\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize.php\",\n\"line\": 27,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\ValidatePostSize\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance.php\",\n\"line\": 86,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\fruitcake\\\\laravel-cors\\\\src\\\\HandleCors.php\",\n\"line\": 52,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Fruitcake\\\\Cors\\\\HandleCors\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Http\\\\Middleware\\\\TrustProxies.php\",\n\"line\": 39,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 167,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Http\\\\Middleware\\\\TrustProxies\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Pipeline\\\\Pipeline.php\",\n\"line\": 103,\n\"function\": \"Illuminate\\\\Pipeline\\\\{closure}\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n\"line\": 141,\n\"function\": \"then\",\n\"class\": \"Illuminate\\\\Pipeline\\\\Pipeline\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Http\\\\Kernel.php\",\n\"line\": 110,\n\"function\": \"sendRequestThroughRouter\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n\"type\": \"->\"\n},\n{\n\"file\": \"G:\\\\XAMPP\\\\htdocs\\\\UAM\\\\simple-crm\\\\public\\\\index.php\",\n\"line\": 52,\n\"function\": \"handle\",\n\"class\": \"Illuminate\\\\Foundation\\\\Http\\\\Kernel\",\n\"type\": \"->\"\n}\n]\n}",
+                            "name": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

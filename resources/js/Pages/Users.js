@@ -9,6 +9,7 @@ import {Paginator} from "primereact/paginator";
 import {Dialog} from "primereact/dialog";
 import {InputText} from "primereact/inputtext";
 import {showError, showMessage, showSuccess} from "../Helpers/helpers";
+import {Dropdown} from "primereact/dropdown";
 
 const Users = (props) => {
 
@@ -23,7 +24,7 @@ const Users = (props) => {
     const [totalRecords, setTotalRecords] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const currentUserAccessLevel = +JSON.parse(localStorage.getItem("user")).access_level;
+    const currentUserRole = JSON.parse(localStorage.getItem("user")).role;
 
     const fetchUsers = (page = currentPage, limit = rows) => {
         axios.get(`/users?limit=${limit}&page=${page}`, {
@@ -47,6 +48,12 @@ const Users = (props) => {
         setUserDialog(false);
     }
 
+    const userRoles = [
+        {label: 'Normal user', value: 'user'},
+        {label: 'Moderator', value: 'moderator'},
+        {label: 'Admin', value: 'admin'},
+    ];
+
     const saveUser = () => {
         console.log("save user", selectedUser)
 
@@ -65,8 +72,8 @@ const Users = (props) => {
                     console.log(res);
                     showMessage("Pomyślnie dodano nowego użytkownika");
                     fetchUsers();
-                    setSelectedUser({});
                     hideDialog();
+                    setSelectedUser({});
                 })
                 .catch((e) => {
                     console.log(e.response);
@@ -78,6 +85,7 @@ const Users = (props) => {
                 "surname": selectedUser.surname,
                 "login": selectedUser.login,
                 "date_of_birth": selectedUser.date_of_birth,
+                ...(selectedUser.role && {"role": selectedUser.role})
             }, {
                 'Authorization': `Token ${localStorage.getItem("token")}`
             })
@@ -85,8 +93,8 @@ const Users = (props) => {
                     console.log(res);
                     showMessage("Pomyślnie zedytowano użytkownika");
                     fetchUsers();
-                    setSelectedUser({});
                     hideDialog();
+                    setSelectedUser({});
                 })
                 .catch((e) => {
                     console.log(e.response);
@@ -121,33 +129,8 @@ const Users = (props) => {
         })
             .then((res) => {
                 console.log(res);
-                showSuccess(res);
                 fetchUsers();
-            })
-            .catch((e) => {
-                console.log(e.response);
-                showError(e.response);
-            })
-    }
-
-    const changeAccessLevel = (value) => {
-        const newAccessLevel = selectedUser.access_level + value;
-
-        console.log("changeAccessLevel", value)
-        axios.put('/user/' + selectedUser.id + '/accesslevel', {
-            "access_level": newAccessLevel
-        }, {
-            'Authorization': `Token ${localStorage.getItem("token")}`
-        })
-            .then((res) => {
-                console.log(res);
                 showSuccess(res);
-
-                let _user = {...selectedUser};
-                _user['access_level'] = newAccessLevel;
-                setSelectedUser(_user);
-
-                fetchUsers();
             })
             .catch((e) => {
                 console.log(e.response);
@@ -187,7 +170,7 @@ const Users = (props) => {
             <React.Fragment>
                 <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2"
                         onClick={() => editUser(rowData)}/>
-                { currentUserAccessLevel === 3 &&
+                { currentUserRole === 'admin' &&
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-warning"
                         onClick={() => deleteUser(rowData)}/> }
             </React.Fragment>
@@ -206,7 +189,7 @@ const Users = (props) => {
             <Header history={props.history}/>
             <div className={"content"}>
                 <div className="card">
-                    {currentUserAccessLevel >= 2 && <Toolbar className="mb-4" left={toolbarTemplate}/> }
+                    {(currentUserRole === 'admin' || currentUserRole === 'moderator') && <Toolbar className="mb-4" left={toolbarTemplate}/> }
 
                     <DataTable ref={dt} value={users}
                                dataKey="id"
@@ -217,8 +200,8 @@ const Users = (props) => {
                         <Column field="surname" header="Surname"/>
                         <Column field="login" header="Login"/>
                         <Column field="date_of_birth" header="Date of birth"/>
-                        {currentUserAccessLevel === 3 && <Column field="access_level" header="Access level" /> }
-                        {currentUserAccessLevel >= 2 && <Column body={actionBodyTemplate}/> }
+                        {currentUserRole === 'admin' && <Column field="role" header="User role" /> }
+                        {(currentUserRole === 'moderator' || currentUserRole === 'admin') && <Column body={actionBodyTemplate}/> }
                     </DataTable>
 
                     <Paginator first={first} rows={rows} totalRecords={totalRecords} rowsPerPageOptions={[20, 30, 40, 50, 100]}
@@ -230,42 +213,39 @@ const Users = (props) => {
                         className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                     <div className="p-field">
                         <label htmlFor="name">Name</label>
-                        <InputText id="name" value={selectedUser.name} onChange={(e) => onInputChange(e, 'name')}/>
+                        <InputText id="name" defaultValue={selectedUser.name} onChange={(e) => onInputChange(e, 'name')}/>
                     </div>
                     <div className="p-field mt-4">
                         <label htmlFor="surname">Surname</label>
-                        <InputText id="surname" value={selectedUser.surname}
+                        <InputText id="surname" defaultValue={selectedUser.surname}
                                    onChange={(e) => onInputChange(e, 'surname')}/>
                     </div>
                     <div className="p-field mt-4">
                         <label htmlFor="login">Login</label>
-                        <InputText id="login" value={selectedUser.login} onChange={(e) => onInputChange(e, 'login')}/>
+                        <InputText id="login" defaultValue={selectedUser.login} onChange={(e) => onInputChange(e, 'login')}/>
                     </div>
                     <div className="p-field mt-4">
                         <label htmlFor="dateOfBirth">Date of birth</label>
-                        <InputText id="dateOfBirth" value={selectedUser.date_of_birth}
+                        <InputText id="dateOfBirth" defaultValue={selectedUser.date_of_birth}
                                    onChange={(e) => onInputChange(e, 'date_of_birth')}/>
                     </div>
                     {typeof selectedUser.password !== "undefined" &&
                     <div className="p-field mt-4">
                         <label htmlFor="password">Password</label>
-                        <InputText id="password" value={selectedUser.password} type={"password"}
+                        <InputText id="password" defaultValue={selectedUser.password} type={"password"}
                                    onChange={(e) => onInputChange(e, 'password')}/>
                     </div>}
                     {typeof selectedUser.password_confirmation !== "undefined" &&
                     <div className="p-field mt-4">
                         <label htmlFor="password_confirmation">Password confirmation</label>
-                        <InputText id="password_confirmation" value={selectedUser.password_confirmation}
+                        <InputText id="password_confirmation" defaultValue={selectedUser.password_confirmation}
                                    type={"password"}
                                    onChange={(e) => onInputChange(e, 'password_confirmation')}/>
                     </div>}
-                    {typeof selectedUser.new === "undefined" && currentUserAccessLevel === 3 &&
+                    {typeof selectedUser.new === "undefined" && currentUserRole === 'admin' &&
                         <div className="p-field mt-4">
-                            <label htmlFor="access_level">Access level</label>
-                            <Button label="Lower the access level" className="p-button-text" tooltip="1 - normal user &#13;&#10;2 - moderator &#13;&#10;3 - admin" tooltipOptions={{position: 'right'}}
-                                    disabled={selectedUser.access_level <= 1} onClick={() => changeAccessLevel(-1)}/>
-                            <Button label="Raise the access level" className="p-button-text" tooltip="1 - normal user &#13;&#10;2 - moderator &#13;&#10;3 - admin" tooltipOptions={{position: 'right'}}
-                                    disabled={selectedUser.access_level >= 3} onClick={() => changeAccessLevel(1)}/>
+                            <label htmlFor="user_role">User role</label>
+                            <Dropdown id={"user_role"} value={selectedUser.role} options={userRoles} onChange={(e) => onInputChange(e, 'role')} placeholder="Select role"/>
                         </div>
                     }
                 </Dialog>

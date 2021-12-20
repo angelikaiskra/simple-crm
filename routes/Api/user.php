@@ -12,13 +12,11 @@ Route::middleware(['auth:sanctum'])->group(static function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/user/{user}', [UserController::class, 'show']);
 
-    Route::middleware('accesslevel:2')->group(static function () {
+    Route::group(['middleware' => ['role:moderator|admin']], function () {
         Route::apiResource('/user', UserController::class)->only(['update']);
     });
 
-    Route::middleware('accesslevel:3')->group(static function () {
-        Route::put('/user/{user}/accesslevel', [UserController::class, 'changeAccessLevel']);
+    Route::group(['middleware' => ['role:admin']], function () {
         Route::apiResource('/user', UserController::class)->only(['destroy']);
     });
-
 });
