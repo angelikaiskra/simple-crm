@@ -27,8 +27,7 @@ class UserFactory extends Factory
             'surname' => $this->faker->lastName(),
             'date_of_birth' => $this->faker->date(),
             'login' => $this->faker->unique()->userName(),
-            'password' => bcrypt('password'),
-            'access_level' => 1
+            'password' => bcrypt('password')
         ];
     }
 

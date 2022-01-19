@@ -2578,7 +2578,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primereact_dialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! primereact/dialog */ "./node_modules/primereact/dialog/dialog.esm.js");
 /* harmony import */ var primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! primereact/inputtext */ "./node_modules/primereact/inputtext/inputtext.esm.js");
 /* harmony import */ var _Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Helpers/helpers */ "./resources/js/Helpers/helpers.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var primereact_dropdown__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primereact/dropdown */ "./node_modules/primereact/dropdown/dropdown.esm.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -2596,6 +2597,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -2650,7 +2652,7 @@ var Users = function Users(props) {
       currentPage = _useState14[0],
       setCurrentPage = _useState14[1];
 
-  var currentUserAccessLevel = +JSON.parse(localStorage.getItem("user")).access_level;
+  var currentUserRole = JSON.parse(localStorage.getItem("user")).role;
 
   var fetchUsers = function fetchUsers() {
     var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : currentPage;
@@ -2675,6 +2677,17 @@ var Users = function Users(props) {
     setUserDialog(false);
   };
 
+  var userRoles = [{
+    label: 'Normal user',
+    value: 'user'
+  }, {
+    label: 'Moderator',
+    value: 'moderator'
+  }, {
+    label: 'Admin',
+    value: 'admin'
+  }];
+
   var saveUser = function saveUser() {
     console.log("save user", selectedUser);
 
@@ -2692,26 +2705,28 @@ var Users = function Users(props) {
         console.log(res);
         (0,_Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__.showMessage)("Pomyślnie dodano nowego użytkownika");
         fetchUsers();
-        setSelectedUser({});
         hideDialog();
+        setSelectedUser({});
       })["catch"](function (e) {
         console.log(e.response);
         (0,_Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__.showError)(e.response);
       });
     } else {
-      axios__WEBPACK_IMPORTED_MODULE_3___default().put('/user/' + selectedUser.id, {
+      axios__WEBPACK_IMPORTED_MODULE_3___default().put('/user/' + selectedUser.id, _objectSpread({
         "name": selectedUser.name,
         "surname": selectedUser.surname,
         "login": selectedUser.login,
         "date_of_birth": selectedUser.date_of_birth
-      }, {
+      }, selectedUser.role && {
+        "role": selectedUser.role
+      }), {
         'Authorization': "Token ".concat(localStorage.getItem("token"))
       }).then(function (res) {
         console.log(res);
         (0,_Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__.showMessage)("Pomyślnie zedytowano użytkownika");
         fetchUsers();
-        setSelectedUser({});
         hideDialog();
+        setSelectedUser({});
       })["catch"](function (e) {
         console.log(e.response);
         (0,_Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__.showError)(e.response);
@@ -2743,30 +2758,8 @@ var Users = function Users(props) {
       'Authorization': "Token ".concat(localStorage.getItem("token"))
     }).then(function (res) {
       console.log(res);
-      (0,_Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__.showSuccess)(res);
       fetchUsers();
-    })["catch"](function (e) {
-      console.log(e.response);
-      (0,_Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__.showError)(e.response);
-    });
-  };
-
-  var changeAccessLevel = function changeAccessLevel(value) {
-    var newAccessLevel = selectedUser.access_level + value;
-    console.log("changeAccessLevel", value);
-    axios__WEBPACK_IMPORTED_MODULE_3___default().put('/user/' + selectedUser.id + '/accesslevel', {
-      "access_level": newAccessLevel
-    }, {
-      'Authorization': "Token ".concat(localStorage.getItem("token"))
-    }).then(function (res) {
-      console.log(res);
       (0,_Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__.showSuccess)(res);
-
-      var _user = _objectSpread({}, selectedUser);
-
-      _user['access_level'] = newAccessLevel;
-      setSelectedUser(_user);
-      fetchUsers();
     })["catch"](function (e) {
       console.log(e.response);
       (0,_Helpers_helpers__WEBPACK_IMPORTED_MODULE_10__.showError)(e.response);
@@ -2790,7 +2783,7 @@ var Users = function Users(props) {
   };
 
   var toolbarTemplate = function toolbarTemplate() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
       label: "New",
       icon: "pi pi-plus",
       className: "p-button-success",
@@ -2800,23 +2793,23 @@ var Users = function Users(props) {
     });
   };
 
-  var header = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+  var header = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
     className: "table-header",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h5", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h5", {
       className: "mx-0 my-1",
       children: "List of users"
     })
   });
 
   var actionBodyTemplate = function actionBodyTemplate(rowData) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
         icon: "pi pi-pencil",
         className: "p-button-rounded p-button-success mr-2",
         onClick: function onClick() {
           return editUser(rowData);
         }
-      }), currentUserAccessLevel === 3 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      }), currentUserRole === 'admin' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
         icon: "pi pi-trash",
         className: "p-button-rounded p-button-warning",
         onClick: function onClick() {
@@ -2826,13 +2819,13 @@ var Users = function Users(props) {
     });
   };
 
-  var productDialogFooter = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+  var productDialogFooter = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
       label: "Cancel",
       icon: "pi pi-times",
       className: "p-button-text",
       onClick: hideDialog
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
       label: "Save",
       icon: "pi pi-check",
       className: "p-button-text",
@@ -2840,55 +2833,55 @@ var Users = function Users(props) {
     })]
   });
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Layout_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Layout_Header__WEBPACK_IMPORTED_MODULE_1__["default"], {
       history: props.history
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
       className: "content",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
         className: "card",
-        children: [currentUserAccessLevel >= 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_primereact_all_esm__WEBPACK_IMPORTED_MODULE_4__.Toolbar, {
+        children: [(currentUserRole === 'admin' || currentUserRole === 'moderator') && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_primereact_all_esm__WEBPACK_IMPORTED_MODULE_4__.Toolbar, {
           className: "mb-4",
           left: toolbarTemplate
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(primereact_datatable__WEBPACK_IMPORTED_MODULE_5__.DataTable, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(primereact_datatable__WEBPACK_IMPORTED_MODULE_5__.DataTable, {
           ref: dt,
           value: users,
           dataKey: "id",
           header: header,
           responsiveLayout: "scroll",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
             headerStyle: {
               width: '3rem'
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
             field: "id",
             header: "ID"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
             field: "name",
             header: "Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
             field: "surname",
             header: "Surname"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
             field: "login",
             header: "Login"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
             field: "date_of_birth",
             header: "Date of birth"
-          }), currentUserAccessLevel === 3 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
-            field: "access_level",
-            header: "Access level"
-          }), currentUserAccessLevel >= 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
+          }), currentUserRole === 'admin' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
+            field: "role",
+            header: "User role"
+          }), (currentUserRole === 'moderator' || currentUserRole === 'admin') && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_column__WEBPACK_IMPORTED_MODULE_6__.Column, {
             body: actionBodyTemplate
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_paginator__WEBPACK_IMPORTED_MODULE_7__.Paginator, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_paginator__WEBPACK_IMPORTED_MODULE_7__.Paginator, {
           first: first,
           rows: rows,
           totalRecords: totalRecords,
           rowsPerPageOptions: [20, 30, 40, 50, 100],
           onPageChange: onPageChange
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(primereact_dialog__WEBPACK_IMPORTED_MODULE_8__.Dialog, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(primereact_dialog__WEBPACK_IMPORTED_MODULE_8__.Dialog, {
         visible: userDialog,
         style: {
           width: '450px'
@@ -2898,107 +2891,93 @@ var Users = function Users(props) {
         className: "p-fluid",
         footer: productDialogFooter,
         onHide: hideDialog,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "p-field",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
             htmlFor: "name",
             children: "Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
             id: "name",
-            value: selectedUser.name,
+            defaultValue: selectedUser.name,
             onChange: function onChange(e) {
               return onInputChange(e, 'name');
             }
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "p-field mt-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
             htmlFor: "surname",
             children: "Surname"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
             id: "surname",
-            value: selectedUser.surname,
+            defaultValue: selectedUser.surname,
             onChange: function onChange(e) {
               return onInputChange(e, 'surname');
             }
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "p-field mt-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
             htmlFor: "login",
             children: "Login"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
             id: "login",
-            value: selectedUser.login,
+            defaultValue: selectedUser.login,
             onChange: function onChange(e) {
               return onInputChange(e, 'login');
             }
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "p-field mt-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
             htmlFor: "dateOfBirth",
             children: "Date of birth"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
             id: "dateOfBirth",
-            value: selectedUser.date_of_birth,
+            defaultValue: selectedUser.date_of_birth,
             onChange: function onChange(e) {
               return onInputChange(e, 'date_of_birth');
             }
           })]
-        }), typeof selectedUser.password !== "undefined" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        }), typeof selectedUser.password !== "undefined" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "p-field mt-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
             htmlFor: "password",
             children: "Password"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
             id: "password",
-            value: selectedUser.password,
+            defaultValue: selectedUser.password,
             type: "password",
             onChange: function onChange(e) {
               return onInputChange(e, 'password');
             }
           })]
-        }), typeof selectedUser.password_confirmation !== "undefined" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        }), typeof selectedUser.password_confirmation !== "undefined" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "p-field mt-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
             htmlFor: "password_confirmation",
             children: "Password confirmation"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_inputtext__WEBPACK_IMPORTED_MODULE_9__.InputText, {
             id: "password_confirmation",
-            value: selectedUser.password_confirmation,
+            defaultValue: selectedUser.password_confirmation,
             type: "password",
             onChange: function onChange(e) {
               return onInputChange(e, 'password_confirmation');
             }
           })]
-        }), typeof selectedUser["new"] === "undefined" && currentUserAccessLevel === 3 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        }), typeof selectedUser["new"] === "undefined" && currentUserRole === 'admin' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "p-field mt-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
-            htmlFor: "access_level",
-            children: "Access level"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: "Lower the access level",
-            className: "p-button-text",
-            tooltip: "1 - normal user \r\n2 - moderator \r\n3 - admin",
-            tooltipOptions: {
-              position: 'right'
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+            htmlFor: "user_role",
+            children: "User role"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(primereact_dropdown__WEBPACK_IMPORTED_MODULE_11__.Dropdown, {
+            id: "user_role",
+            value: selectedUser.role,
+            options: userRoles,
+            onChange: function onChange(e) {
+              return onInputChange(e, 'role');
             },
-            disabled: selectedUser.access_level <= 1,
-            onClick: function onClick() {
-              return changeAccessLevel(-1);
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(primereact_button__WEBPACK_IMPORTED_MODULE_2__.Button, {
-            label: "Raise the access level",
-            className: "p-button-text",
-            tooltip: "1 - normal user \r\n2 - moderator \r\n3 - admin",
-            tooltipOptions: {
-              position: 'right'
-            },
-            disabled: selectedUser.access_level >= 3,
-            onClick: function onClick() {
-              return changeAccessLevel(1);
-            }
+            placeholder: "Select role"
           })]
         })]
       })]

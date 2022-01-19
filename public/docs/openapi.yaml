@@ -1,0 +1,3462 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost/UAM/simple-crm/public'
+paths:
+  /api/register:
+    post:
+      summary: 'Register user'
+      description: 'This endpoint allows you to register a user in standard way using an email'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Pomyślnie zarejestrowano użytkownika'
+                  data:
+                    id: 54
+                properties:
+                  message:
+                    type: string
+                    example: 'Pomyślnie zarejestrowano użytkownika'
+                  data:
+                    type: object
+                    example:
+                      id: 54
+      tags:
+        - 'Authorization managment'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  description: 'User''s login.'
+                  example: PrettyWoman
+                name:
+                  type: string
+                  description: 'User''s name.'
+                  example: Adam
+                surname:
+                  type: string
+                  description: 'User''s surname.'
+                  example: Kowalski
+                date_of_birth:
+                  type: date
+                  description: 'User''s date of birth.'
+                  example: '2000-10-10'
+                password:
+                  type: string
+                  description: 'User''s Password - automatically encrypts with bcrypt.'
+                  example: password
+                password_confirmation:
+                  type: string
+                  description: 'Password confirmation of user''s password.'
+                  example: password
+              required:
+                - login
+                - name
+                - surname
+                - date_of_birth
+                - password
+                - password_confirmation
+      security: []
+  /api/login:
+    post:
+      summary: 'Login user'
+      description: 'This endpoint allows you to login a user in a standard way using an email'
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    user:
+                      id: 54
+                      name: Angelika
+                      surname: Iskra
+                      date_of_birth: '2000-10-27'
+                      login: admin123456
+                      deleted_at: null
+                      created_at: '2021-12-20T13:38:00.000000Z'
+                      updated_at: '2021-12-20T13:38:00.000000Z'
+                      role: user
+                      roles:
+                        -
+                          id: 1
+                          name: user
+                          guard_name: web
+                          created_at: '2021-12-20T13:08:58.000000Z'
+                          updated_at: '2021-12-20T13:08:58.000000Z'
+                          pivot:
+                            model_id: 54
+                            role_id: 1
+                            model_type: App\Models\User
+                    token: 6|sBlAGXIEO3cWkW4cxSUwOgNJzFTIJRAMnlJXTkmz
+                properties:
+                  data:
+                    type: object
+                    example:
+                      user:
+                        id: 54
+                        name: Angelika
+                        surname: Iskra
+                        date_of_birth: '2000-10-27'
+                        login: admin123456
+                        deleted_at: null
+                        created_at: '2021-12-20T13:38:00.000000Z'
+                        updated_at: '2021-12-20T13:38:00.000000Z'
+                        role: user
+                        roles:
+                          -
+                            id: 1
+                            name: user
+                            guard_name: web
+                            created_at: '2021-12-20T13:08:58.000000Z'
+                            updated_at: '2021-12-20T13:08:58.000000Z'
+                            pivot:
+                              model_id: 54
+                              role_id: 1
+                              model_type: App\Models\User
+                      token: 6|sBlAGXIEO3cWkW4cxSUwOgNJzFTIJRAMnlJXTkmz
+      tags:
+        - 'Authorization managment'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: creptwpendqcewysmfmjgoobaiwhgqtchwjxucikzsokzhnxbyldozixrdhbnnvwayrbyyrlevlcujbpvexpctqtqqgkiajbfovdxyqlepycufwvwrlxgntimtzjakiefrfcezonjyhhbsaejmvfireehoebvmqqjafsomkbawxzntmhzwwrgifwgrqwirojnumjpmenfyovypydlwxpgrhklceqntipabwctkniifi
+                password:
+                  type: string
+                  description: 'User''s Password - automatically encrypts with bcrypt.'
+                  example: password
+                email:
+                  type: string
+                  description: 'User''s Email.'
+                  example: definetly@not.admin
+              required:
+                - login
+                - password
+                - email
+      security: []
+  /api/logout:
+    get:
+      summary: 'Logouts user'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Pomyślnie wylogowano'
+                properties:
+                  message:
+                    type: string
+                    example: 'Pomyślnie wylogowano'
+      tags:
+        - 'Authorization managment'
+  /api/companies:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Non required field'
+          example: 10
+          required: false
+          schema:
+            type: integer
+            description: 'Non required field'
+            example: 10
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: ''
+                  exception: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                  file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php'
+                  line: 43
+                  trace:
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\RouteCollection.php'
+                      line: 162
+                      function: handleMatchedRoute
+                      class: Illuminate\Routing\AbstractRouteCollection
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 647
+                      function: match
+                      class: Illuminate\Routing\RouteCollection
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 636
+                      function: findRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 625
+                      function: dispatchToRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 166
+                      function: dispatch
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 128
+                      function: 'Illuminate\Foundation\Http\{closure}'
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                      line: 31
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                      line: 40
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                      line: 27
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                      line: 86
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                      line: 38
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Fruitcake\Cors\HandleCors
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php'
+                      line: 39
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Http\Middleware\TrustProxies
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 103
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 141
+                      function: then
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 110
+                      function: sendRequestThroughRouter
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 299
+                      function: handle
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 287
+                      function: callLaravelOrLumenRoute
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 89
+                      function: makeApiCall
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 45
+                      function: makeResponseCall
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 35
+                      function: makeResponseCallIfConditionsPass
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 222
+                      function: __invoke
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 179
+                      function: iterateThroughStrategies
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 116
+                      function: fetchResponses
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 117
+                      function: processRoute
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 75
+                      function: extractEndpointsInfoFromLaravelApp
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 51
+                      function: extractEndpointsInfoAndWriteToDisk
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Commands\GenerateDocumentation.php'
+                      line: 48
+                      function: get
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 36
+                      function: handle
+                      class: Knuckles\Scribe\Commands\GenerateDocumentation
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Util.php'
+                      line: 40
+                      function: 'Illuminate\Container\{closure}'
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 93
+                      function: unwrapIfClosure
+                      class: Illuminate\Container\Util
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 37
+                      function: callBoundMethod
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Container.php'
+                      line: 653
+                      function: call
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                      line: 136
+                      function: call
+                      class: Illuminate\Container\Container
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Command\Command.php'
+                      line: 299
+                      function: execute
+                      class: Illuminate\Console\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                      line: 121
+                      function: run
+                      class: Symfony\Component\Console\Command\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 978
+                      function: run
+                      class: Illuminate\Console\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 295
+                      function: doRunCommand
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 167
+                      function: doRun
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Application.php'
+                      line: 94
+                      function: run
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php'
+                      line: 129
+                      function: run
+                      class: Illuminate\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\artisan'
+                      line: 37
+                      function: handle
+                      class: Illuminate\Foundation\Console\Kernel
+                      type: '->'
+                properties:
+                  message:
+                    type: string
+                    example: ''
+                  exception:
+                    type: string
+                    example: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                  file:
+                    type: string
+                    example: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php'
+                  line:
+                    type: integer
+                    example: 43
+                  trace:
+                    type: array
+                    example:
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\RouteCollection.php'
+                        line: 162
+                        function: handleMatchedRoute
+                        class: Illuminate\Routing\AbstractRouteCollection
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 647
+                        function: match
+                        class: Illuminate\Routing\RouteCollection
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 636
+                        function: findRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 625
+                        function: dispatchToRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 166
+                        function: dispatch
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 128
+                        function: 'Illuminate\Foundation\Http\{closure}'
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                        line: 31
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                        line: 40
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                        line: 27
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                        line: 86
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                        line: 38
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Fruitcake\Cors\HandleCors
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php'
+                        line: 39
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Http\Middleware\TrustProxies
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 103
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 141
+                        function: then
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 110
+                        function: sendRequestThroughRouter
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 299
+                        function: handle
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 287
+                        function: callLaravelOrLumenRoute
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 89
+                        function: makeApiCall
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 45
+                        function: makeResponseCall
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 35
+                        function: makeResponseCallIfConditionsPass
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 222
+                        function: __invoke
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 179
+                        function: iterateThroughStrategies
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 116
+                        function: fetchResponses
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 117
+                        function: processRoute
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 75
+                        function: extractEndpointsInfoFromLaravelApp
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 51
+                        function: extractEndpointsInfoAndWriteToDisk
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Commands\GenerateDocumentation.php'
+                        line: 48
+                        function: get
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 36
+                        function: handle
+                        class: Knuckles\Scribe\Commands\GenerateDocumentation
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Util.php'
+                        line: 40
+                        function: 'Illuminate\Container\{closure}'
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 93
+                        function: unwrapIfClosure
+                        class: Illuminate\Container\Util
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 37
+                        function: callBoundMethod
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Container.php'
+                        line: 653
+                        function: call
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                        line: 136
+                        function: call
+                        class: Illuminate\Container\Container
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Command\Command.php'
+                        line: 299
+                        function: execute
+                        class: Illuminate\Console\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                        line: 121
+                        function: run
+                        class: Symfony\Component\Console\Command\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 978
+                        function: run
+                        class: Illuminate\Console\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 295
+                        function: doRunCommand
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 167
+                        function: doRun
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Application.php'
+                        line: 94
+                        function: run
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php'
+                        line: 129
+                        function: run
+                        class: Illuminate\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\artisan'
+                        line: 37
+                        function: handle
+                        class: Illuminate\Foundation\Console\Kernel
+                        type: '->'
+                    items:
+                      type: object
+      tags:
+        - 'Company Managment'
+      security: []
+  /api/company:
+    post:
+      summary: 'Store single company'
+      description: "Access Level needed: 2<br>\n\nAdds company to database"
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Company Managment'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Company''s name.'
+                  example: Stettiner
+                nip:
+                  type: string
+                  description: 'Company''s NIP.'
+                  example: '1060000062'
+                address:
+                  type: string
+                  description: 'Company''s address.'
+                  example: '10 Wolfgang Street'
+                city:
+                  type: string
+                  description: 'Company''s city'
+                  example: Szczecin
+                creator_id:
+                  type: integer
+                  description: ''
+                  example: 15
+              required:
+                - name
+                - nip
+                - address
+                - city
+                - creator_id
+  '/api/company/{id}':
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: ''
+                  exception: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                  file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php'
+                  line: 43
+                  trace:
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\RouteCollection.php'
+                      line: 162
+                      function: handleMatchedRoute
+                      class: Illuminate\Routing\AbstractRouteCollection
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 647
+                      function: match
+                      class: Illuminate\Routing\RouteCollection
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 636
+                      function: findRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 625
+                      function: dispatchToRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 166
+                      function: dispatch
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 128
+                      function: 'Illuminate\Foundation\Http\{closure}'
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                      line: 31
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                      line: 40
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                      line: 27
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                      line: 86
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                      line: 38
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Fruitcake\Cors\HandleCors
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php'
+                      line: 39
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Http\Middleware\TrustProxies
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 103
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 141
+                      function: then
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 110
+                      function: sendRequestThroughRouter
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 299
+                      function: handle
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 287
+                      function: callLaravelOrLumenRoute
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 89
+                      function: makeApiCall
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 45
+                      function: makeResponseCall
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 35
+                      function: makeResponseCallIfConditionsPass
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 222
+                      function: __invoke
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 179
+                      function: iterateThroughStrategies
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 116
+                      function: fetchResponses
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 117
+                      function: processRoute
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 75
+                      function: extractEndpointsInfoFromLaravelApp
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 51
+                      function: extractEndpointsInfoAndWriteToDisk
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Commands\GenerateDocumentation.php'
+                      line: 48
+                      function: get
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 36
+                      function: handle
+                      class: Knuckles\Scribe\Commands\GenerateDocumentation
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Util.php'
+                      line: 40
+                      function: 'Illuminate\Container\{closure}'
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 93
+                      function: unwrapIfClosure
+                      class: Illuminate\Container\Util
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 37
+                      function: callBoundMethod
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Container.php'
+                      line: 653
+                      function: call
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                      line: 136
+                      function: call
+                      class: Illuminate\Container\Container
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Command\Command.php'
+                      line: 299
+                      function: execute
+                      class: Illuminate\Console\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                      line: 121
+                      function: run
+                      class: Symfony\Component\Console\Command\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 978
+                      function: run
+                      class: Illuminate\Console\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 295
+                      function: doRunCommand
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 167
+                      function: doRun
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Application.php'
+                      line: 94
+                      function: run
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php'
+                      line: 129
+                      function: run
+                      class: Illuminate\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\artisan'
+                      line: 37
+                      function: handle
+                      class: Illuminate\Foundation\Console\Kernel
+                      type: '->'
+                properties:
+                  message:
+                    type: string
+                    example: ''
+                  exception:
+                    type: string
+                    example: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                  file:
+                    type: string
+                    example: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php'
+                  line:
+                    type: integer
+                    example: 43
+                  trace:
+                    type: array
+                    example:
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\RouteCollection.php'
+                        line: 162
+                        function: handleMatchedRoute
+                        class: Illuminate\Routing\AbstractRouteCollection
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 647
+                        function: match
+                        class: Illuminate\Routing\RouteCollection
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 636
+                        function: findRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 625
+                        function: dispatchToRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 166
+                        function: dispatch
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 128
+                        function: 'Illuminate\Foundation\Http\{closure}'
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                        line: 31
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                        line: 40
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                        line: 27
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                        line: 86
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                        line: 38
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Fruitcake\Cors\HandleCors
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php'
+                        line: 39
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Http\Middleware\TrustProxies
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 103
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 141
+                        function: then
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 110
+                        function: sendRequestThroughRouter
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 299
+                        function: handle
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 287
+                        function: callLaravelOrLumenRoute
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 89
+                        function: makeApiCall
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 45
+                        function: makeResponseCall
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 35
+                        function: makeResponseCallIfConditionsPass
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 222
+                        function: __invoke
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 179
+                        function: iterateThroughStrategies
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 116
+                        function: fetchResponses
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 117
+                        function: processRoute
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 75
+                        function: extractEndpointsInfoFromLaravelApp
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 51
+                        function: extractEndpointsInfoAndWriteToDisk
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Commands\GenerateDocumentation.php'
+                        line: 48
+                        function: get
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 36
+                        function: handle
+                        class: Knuckles\Scribe\Commands\GenerateDocumentation
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Util.php'
+                        line: 40
+                        function: 'Illuminate\Container\{closure}'
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 93
+                        function: unwrapIfClosure
+                        class: Illuminate\Container\Util
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 37
+                        function: callBoundMethod
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Container.php'
+                        line: 653
+                        function: call
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                        line: 136
+                        function: call
+                        class: Illuminate\Container\Container
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Command\Command.php'
+                        line: 299
+                        function: execute
+                        class: Illuminate\Console\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                        line: 121
+                        function: run
+                        class: Symfony\Component\Console\Command\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 978
+                        function: run
+                        class: Illuminate\Console\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 295
+                        function: doRunCommand
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 167
+                        function: doRun
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Application.php'
+                        line: 94
+                        function: run
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php'
+                        line: 129
+                        function: run
+                        class: Illuminate\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\artisan'
+                        line: 37
+                        function: handle
+                        class: Illuminate\Foundation\Console\Kernel
+                        type: '->'
+                    items:
+                      type: object
+      tags:
+        - 'Company Managment'
+      security: []
+    put:
+      summary: 'Update single company'
+      description: "Access Level needed: 2<br>\n\nUpdates company's columns find by id"
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Company Managment'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Company''s name.'
+                  example: Stettiner
+                nip:
+                  type: string
+                  description: 'Company''s NIP.'
+                  example: '1060000062'
+                address:
+                  type: string
+                  description: 'Company''s address.'
+                  example: '10 Wolfgang Street'
+                city:
+                  type: string
+                  description: 'Company''s city'
+                  example: Szczecin
+                creator_id:
+                  type: integer
+                  description: ''
+                  example: 5
+              required:
+                - name
+                - nip
+                - address
+                - city
+    delete:
+      summary: 'Delete single company'
+      description: "Access Level needed: 2<br>\n\nRemove specified reward from database.\nMay throw ModelNotFoundException if reward is not in database."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Company Managment'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the company.'
+        example: 19
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: companyId
+        description: 'Id of the company in database'
+        example: 15
+        required: true
+        schema:
+          type: integer
+  /api/user:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: ''
+                  exception: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                  file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php'
+                  line: 43
+                  trace:
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\RouteCollection.php'
+                      line: 162
+                      function: handleMatchedRoute
+                      class: Illuminate\Routing\AbstractRouteCollection
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 647
+                      function: match
+                      class: Illuminate\Routing\RouteCollection
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 636
+                      function: findRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 625
+                      function: dispatchToRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 166
+                      function: dispatch
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 128
+                      function: 'Illuminate\Foundation\Http\{closure}'
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                      line: 31
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                      line: 40
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                      line: 27
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                      line: 86
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                      line: 38
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Fruitcake\Cors\HandleCors
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php'
+                      line: 39
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Http\Middleware\TrustProxies
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 103
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 141
+                      function: then
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 110
+                      function: sendRequestThroughRouter
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 299
+                      function: handle
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 287
+                      function: callLaravelOrLumenRoute
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 89
+                      function: makeApiCall
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 45
+                      function: makeResponseCall
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                      line: 35
+                      function: makeResponseCallIfConditionsPass
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 222
+                      function: __invoke
+                      class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 179
+                      function: iterateThroughStrategies
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                      line: 116
+                      function: fetchResponses
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 117
+                      function: processRoute
+                      class: Knuckles\Scribe\Extracting\Extractor
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 75
+                      function: extractEndpointsInfoFromLaravelApp
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                      line: 51
+                      function: extractEndpointsInfoAndWriteToDisk
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Commands\GenerateDocumentation.php'
+                      line: 48
+                      function: get
+                      class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 36
+                      function: handle
+                      class: Knuckles\Scribe\Commands\GenerateDocumentation
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Util.php'
+                      line: 40
+                      function: 'Illuminate\Container\{closure}'
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 93
+                      function: unwrapIfClosure
+                      class: Illuminate\Container\Util
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                      line: 37
+                      function: callBoundMethod
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Container.php'
+                      line: 653
+                      function: call
+                      class: Illuminate\Container\BoundMethod
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                      line: 136
+                      function: call
+                      class: Illuminate\Container\Container
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Command\Command.php'
+                      line: 299
+                      function: execute
+                      class: Illuminate\Console\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                      line: 121
+                      function: run
+                      class: Symfony\Component\Console\Command\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 978
+                      function: run
+                      class: Illuminate\Console\Command
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 295
+                      function: doRunCommand
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                      line: 167
+                      function: doRun
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Application.php'
+                      line: 94
+                      function: run
+                      class: Symfony\Component\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php'
+                      line: 129
+                      function: run
+                      class: Illuminate\Console\Application
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\artisan'
+                      line: 37
+                      function: handle
+                      class: Illuminate\Foundation\Console\Kernel
+                      type: '->'
+                properties:
+                  message:
+                    type: string
+                    example: ''
+                  exception:
+                    type: string
+                    example: Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+                  file:
+                    type: string
+                    example: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\AbstractRouteCollection.php'
+                  line:
+                    type: integer
+                    example: 43
+                  trace:
+                    type: array
+                    example:
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\RouteCollection.php'
+                        line: 162
+                        function: handleMatchedRoute
+                        class: Illuminate\Routing\AbstractRouteCollection
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 647
+                        function: match
+                        class: Illuminate\Routing\RouteCollection
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 636
+                        function: findRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 625
+                        function: dispatchToRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 166
+                        function: dispatch
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 128
+                        function: 'Illuminate\Foundation\Http\{closure}'
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                        line: 31
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                        line: 40
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                        line: 27
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                        line: 86
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                        line: 38
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Fruitcake\Cors\HandleCors
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php'
+                        line: 39
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Http\Middleware\TrustProxies
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 103
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 141
+                        function: then
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 110
+                        function: sendRequestThroughRouter
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 299
+                        function: handle
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 287
+                        function: callLaravelOrLumenRoute
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 89
+                        function: makeApiCall
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 45
+                        function: makeResponseCall
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Strategies\Responses\ResponseCalls.php'
+                        line: 35
+                        function: makeResponseCallIfConditionsPass
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 222
+                        function: __invoke
+                        class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 179
+                        function: iterateThroughStrategies
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Extracting\Extractor.php'
+                        line: 116
+                        function: fetchResponses
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 117
+                        function: processRoute
+                        class: Knuckles\Scribe\Extracting\Extractor
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 75
+                        function: extractEndpointsInfoFromLaravelApp
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\GroupedEndpoints\GroupedEndpointsFromApp.php'
+                        line: 51
+                        function: extractEndpointsInfoAndWriteToDisk
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\knuckleswtf\scribe\src\Commands\GenerateDocumentation.php'
+                        line: 48
+                        function: get
+                        class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 36
+                        function: handle
+                        class: Knuckles\Scribe\Commands\GenerateDocumentation
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Util.php'
+                        line: 40
+                        function: 'Illuminate\Container\{closure}'
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 93
+                        function: unwrapIfClosure
+                        class: Illuminate\Container\Util
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\BoundMethod.php'
+                        line: 37
+                        function: callBoundMethod
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Container\Container.php'
+                        line: 653
+                        function: call
+                        class: Illuminate\Container\BoundMethod
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                        line: 136
+                        function: call
+                        class: Illuminate\Container\Container
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Command\Command.php'
+                        line: 299
+                        function: execute
+                        class: Illuminate\Console\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Command.php'
+                        line: 121
+                        function: run
+                        class: Symfony\Component\Console\Command\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 978
+                        function: run
+                        class: Illuminate\Console\Command
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 295
+                        function: doRunCommand
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\symfony\console\Application.php'
+                        line: 167
+                        function: doRun
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Console\Application.php'
+                        line: 94
+                        function: run
+                        class: Symfony\Component\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php'
+                        line: 129
+                        function: run
+                        class: Illuminate\Console\Application
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\artisan'
+                        line: 37
+                        function: handle
+                        class: Illuminate\Foundation\Console\Kernel
+                        type: '->'
+                    items:
+                      type: object
+      tags:
+        - Endpoints
+      security: []
+  /api/user/me:
+    get:
+      summary: 'Current user'
+      description: "User roles: user, moderator, admin<br>\n\nDisplay currently logged in user.<br>"
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 2
+                    name: Trycia
+                    surname: Parisian
+                    date_of_birth: '2009-02-04'
+                    login: admin
+                    role: admin
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 2
+                      name: Trycia
+                      surname: Parisian
+                      date_of_birth: '2009-02-04'
+                      login: admin
+                      role: admin
+      tags:
+        - 'User Management'
+  /api/users:
+    get:
+      summary: 'Returns a list of users'
+      description: "User roles: user, moderator, admin<br>\n\nDisplay a paginated(by 20) listing of the users.<br>"
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Non required field - self explanatory'
+          example: 10
+          required: false
+          schema:
+            type: integer
+            description: 'Non required field - self explanatory'
+            example: 10
+        -
+          in: query
+          name: limit
+          description: 'Non required field - self explanatory'
+          example: 7
+          required: false
+          schema:
+            type: integer
+            description: 'Non required field - self explanatory'
+            example: 7
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      name: Amir
+                      surname: Sauer
+                      date_of_birth: '2012-11-05'
+                      login: moderator
+                      role: moderator
+                    -
+                      id: 2
+                      name: Trycia
+                      surname: Parisian
+                      date_of_birth: '2009-02-04'
+                      login: admin
+                      role: admin
+                    -
+                      id: 3
+                      name: Holie
+                      surname: Romaguera
+                      date_of_birth: '1998-10-11'
+                      login: boehm.serena
+                      role: user
+                    -
+                      id: 4
+                      name: Myrna
+                      surname: Yost
+                      date_of_birth: '1984-09-15'
+                      login: vschneider
+                      role: user
+                    -
+                      id: 5
+                      name: Edison
+                      surname: Ritchie
+                      date_of_birth: '2003-07-05'
+                      login: rschmeler
+                      role: user
+                    -
+                      id: 6
+                      name: Tyrel
+                      surname: Schimmel
+                      date_of_birth: '1992-10-24'
+                      login: emory76
+                      role: user
+                    -
+                      id: 7
+                      name: Kiel
+                      surname: Rutherford
+                      date_of_birth: '1990-02-24'
+                      login: lakin.hallie
+                      role: user
+                    -
+                      id: 8
+                      name: Arlene
+                      surname: Weimann
+                      date_of_birth: '1970-03-04'
+                      login: wisoky.gillian
+                      role: user
+                    -
+                      id: 9
+                      name: Deborah
+                      surname: Murazik
+                      date_of_birth: '2012-03-08'
+                      login: llebsack
+                      role: user
+                    -
+                      id: 10
+                      name: Gerhard
+                      surname: Mayer
+                      date_of_birth: '2015-08-04'
+                      login: athena94
+                      role: user
+                    -
+                      id: 11
+                      name: Evans
+                      surname: Dooley
+                      date_of_birth: '1978-01-29'
+                      login: roy25
+                      role: user
+                    -
+                      id: 12
+                      name: Caroline
+                      surname: Mante
+                      date_of_birth: '2020-06-17'
+                      login: bcollins
+                      role: user
+                    -
+                      id: 13
+                      name: Francis
+                      surname: Schiller
+                      date_of_birth: '1991-09-28'
+                      login: torey65
+                      role: user
+                    -
+                      id: 14
+                      name: Dina
+                      surname: Dietrich
+                      date_of_birth: '1986-03-05'
+                      login: ilehner
+                      role: user
+                    -
+                      id: 15
+                      name: Dexter
+                      surname: Bruen
+                      date_of_birth: '2006-02-08'
+                      login: bstamm
+                      role: user
+                    -
+                      id: 16
+                      name: Vivian
+                      surname: Braun
+                      date_of_birth: '1981-08-22'
+                      login: jakubowski.richie
+                      role: user
+                    -
+                      id: 17
+                      name: Palma
+                      surname: Schneider
+                      date_of_birth: '1983-05-25'
+                      login: glover.johnnie
+                      role: user
+                    -
+                      id: 18
+                      name: Noe
+                      surname: Larson
+                      date_of_birth: '1989-10-28'
+                      login: kling.berry
+                      role: user
+                    -
+                      id: 19
+                      name: Charity
+                      surname: Adams
+                      date_of_birth: '1977-09-24'
+                      login: veichmann
+                      role: user
+                    -
+                      id: 20
+                      name: Cayla
+                      surname: Leffler
+                      date_of_birth: '1984-08-28'
+                      login: raegan73
+                      role: user
+                  links:
+                    first: 'http://localhost/UAM/simple-crm/public/api/users?page=1'
+                    last: 'http://localhost/UAM/simple-crm/public/api/users?page=3'
+                    prev: null
+                    next: 'http://localhost/UAM/simple-crm/public/api/users?page=2'
+                  meta:
+                    current_page: 1
+                    from: 1
+                    last_page: 3
+                    links:
+                      -
+                        url: null
+                        label: '&laquo; Previous'
+                        active: false
+                      -
+                        url: 'http://localhost/UAM/simple-crm/public/api/users?page=1'
+                        label: '1'
+                        active: true
+                      -
+                        url: 'http://localhost/UAM/simple-crm/public/api/users?page=2'
+                        label: '2'
+                        active: false
+                      -
+                        url: 'http://localhost/UAM/simple-crm/public/api/users?page=3'
+                        label: '3'
+                        active: false
+                      -
+                        url: 'http://localhost/UAM/simple-crm/public/api/users?page=2'
+                        label: 'Next &raquo;'
+                        active: false
+                    path: 'http://localhost/UAM/simple-crm/public/api/users'
+                    per_page: 20
+                    to: 20
+                    total: 54
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: Amir
+                        surname: Sauer
+                        date_of_birth: '2012-11-05'
+                        login: moderator
+                        role: moderator
+                      -
+                        id: 2
+                        name: Trycia
+                        surname: Parisian
+                        date_of_birth: '2009-02-04'
+                        login: admin
+                        role: admin
+                      -
+                        id: 3
+                        name: Holie
+                        surname: Romaguera
+                        date_of_birth: '1998-10-11'
+                        login: boehm.serena
+                        role: user
+                      -
+                        id: 4
+                        name: Myrna
+                        surname: Yost
+                        date_of_birth: '1984-09-15'
+                        login: vschneider
+                        role: user
+                      -
+                        id: 5
+                        name: Edison
+                        surname: Ritchie
+                        date_of_birth: '2003-07-05'
+                        login: rschmeler
+                        role: user
+                      -
+                        id: 6
+                        name: Tyrel
+                        surname: Schimmel
+                        date_of_birth: '1992-10-24'
+                        login: emory76
+                        role: user
+                      -
+                        id: 7
+                        name: Kiel
+                        surname: Rutherford
+                        date_of_birth: '1990-02-24'
+                        login: lakin.hallie
+                        role: user
+                      -
+                        id: 8
+                        name: Arlene
+                        surname: Weimann
+                        date_of_birth: '1970-03-04'
+                        login: wisoky.gillian
+                        role: user
+                      -
+                        id: 9
+                        name: Deborah
+                        surname: Murazik
+                        date_of_birth: '2012-03-08'
+                        login: llebsack
+                        role: user
+                      -
+                        id: 10
+                        name: Gerhard
+                        surname: Mayer
+                        date_of_birth: '2015-08-04'
+                        login: athena94
+                        role: user
+                      -
+                        id: 11
+                        name: Evans
+                        surname: Dooley
+                        date_of_birth: '1978-01-29'
+                        login: roy25
+                        role: user
+                      -
+                        id: 12
+                        name: Caroline
+                        surname: Mante
+                        date_of_birth: '2020-06-17'
+                        login: bcollins
+                        role: user
+                      -
+                        id: 13
+                        name: Francis
+                        surname: Schiller
+                        date_of_birth: '1991-09-28'
+                        login: torey65
+                        role: user
+                      -
+                        id: 14
+                        name: Dina
+                        surname: Dietrich
+                        date_of_birth: '1986-03-05'
+                        login: ilehner
+                        role: user
+                      -
+                        id: 15
+                        name: Dexter
+                        surname: Bruen
+                        date_of_birth: '2006-02-08'
+                        login: bstamm
+                        role: user
+                      -
+                        id: 16
+                        name: Vivian
+                        surname: Braun
+                        date_of_birth: '1981-08-22'
+                        login: jakubowski.richie
+                        role: user
+                      -
+                        id: 17
+                        name: Palma
+                        surname: Schneider
+                        date_of_birth: '1983-05-25'
+                        login: glover.johnnie
+                        role: user
+                      -
+                        id: 18
+                        name: Noe
+                        surname: Larson
+                        date_of_birth: '1989-10-28'
+                        login: kling.berry
+                        role: user
+                      -
+                        id: 19
+                        name: Charity
+                        surname: Adams
+                        date_of_birth: '1977-09-24'
+                        login: veichmann
+                        role: user
+                      -
+                        id: 20
+                        name: Cayla
+                        surname: Leffler
+                        date_of_birth: '1984-08-28'
+                        login: raegan73
+                        role: user
+                    items:
+                      type: object
+                  links:
+                    type: object
+                    example:
+                      first: 'http://localhost/UAM/simple-crm/public/api/users?page=1'
+                      last: 'http://localhost/UAM/simple-crm/public/api/users?page=3'
+                      prev: null
+                      next: 'http://localhost/UAM/simple-crm/public/api/users?page=2'
+                  meta:
+                    type: object
+                    example:
+                      current_page: 1
+                      from: 1
+                      last_page: 3
+                      links:
+                        -
+                          url: null
+                          label: '&laquo; Previous'
+                          active: false
+                        -
+                          url: 'http://localhost/UAM/simple-crm/public/api/users?page=1'
+                          label: '1'
+                          active: true
+                        -
+                          url: 'http://localhost/UAM/simple-crm/public/api/users?page=2'
+                          label: '2'
+                          active: false
+                        -
+                          url: 'http://localhost/UAM/simple-crm/public/api/users?page=3'
+                          label: '3'
+                          active: false
+                        -
+                          url: 'http://localhost/UAM/simple-crm/public/api/users?page=2'
+                          label: 'Next &raquo;'
+                          active: false
+                      path: 'http://localhost/UAM/simple-crm/public/api/users'
+                      per_page: 20
+                      to: 20
+                      total: 54
+      tags:
+        - 'User Management'
+  '/api/user/{user}':
+    get:
+      summary: "Return single user\n\nUser roles: user, moderator, admin<br>\n\nDisplay the specified user by id.<br>"
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 2
+                    name: Trycia
+                    surname: Parisian
+                    date_of_birth: '2009-02-04'
+                    login: admin
+                    role: admin
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 2
+                      name: Trycia
+                      surname: Parisian
+                      date_of_birth: '2009-02-04'
+                      login: admin
+                      role: admin
+      tags:
+        - 'User Management'
+    parameters:
+      -
+        in: path
+        name: user
+        description: 'Id of user in database'
+        example: 6
+        required: true
+        schema:
+          type: integer
+  '/api/user/{id}':
+    put:
+      summary: 'Update single user'
+      description: "User roles: moderator, admin<br>\n\nUpdates user's columns find by id"
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Pomyślnie zaktualizowano użytkownika'
+                  data:
+                    id: 3
+                    name: Holie
+                    surname: Romaguera
+                    date_of_birth: '1998-10-11'
+                    login: boehm.serena
+                    deleted_at: null
+                    created_at: '2021-12-20T13:09:01.000000Z'
+                    updated_at: '2021-12-20T13:09:48.000000Z'
+                properties:
+                  message:
+                    type: string
+                    example: 'Pomyślnie zaktualizowano użytkownika'
+                  data:
+                    type: object
+                    example:
+                      id: 3
+                      name: Holie
+                      surname: Romaguera
+                      date_of_birth: '1998-10-11'
+                      login: boehm.serena
+                      deleted_at: null
+                      created_at: '2021-12-20T13:09:01.000000Z'
+                      updated_at: '2021-12-20T13:09:48.000000Z'
+      tags:
+        - 'User Management'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'optional User''s name.'
+                  example: Adam
+                surname:
+                  type: string
+                  description: 'optional User''s surname.'
+                  example: Kowalski
+                date_of_birth:
+                  type: date
+                  description: 'optional User''s date of birth.'
+                  example: '2000-10-10'
+                role:
+                  type: string
+                  description: 'optional User''s role, possible values: user, moderator, admin.'
+                  example: moderator
+    delete:
+      summary: 'Delete single user'
+      description: "User roles: admin<br>\n\nRemove the specified user from database.\nMay throw ModelNotFoundException if user's is not in database"
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Pomyślnie usunięto użytkownika'
+                properties:
+                  message:
+                    type: string
+                    example: 'Pomyślnie usunięto użytkownika'
+        403:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User does not have the right roles.'
+                  exception: Spatie\Permission\Exceptions\UnauthorizedException
+                  file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\spatie\laravel-permission\src\Exceptions\UnauthorizedException.php'
+                  line: 22
+                  trace:
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\spatie\laravel-permission\src\Middlewares\RoleMiddleware.php'
+                      line: 24
+                      function: forRoles
+                      class: Spatie\Permission\Exceptions\UnauthorizedException
+                      type: '::'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Spatie\Permission\Middlewares\RoleMiddleware
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php'
+                      line: 50
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Routing\Middleware\SubstituteBindings
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                      line: 127
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                      line: 103
+                      function: handleRequest
+                      class: Illuminate\Routing\Middleware\ThrottleRequests
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                      line: 55
+                      function: handleRequestUsingNamedLimiter
+                      class: Illuminate\Routing\Middleware\ThrottleRequests
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Routing\Middleware\ThrottleRequests
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Auth\Middleware\Authenticate.php'
+                      line: 44
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Auth\Middleware\Authenticate
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\sanctum\src\Http\Middleware\EnsureFrontendRequestsAreStateful.php'
+                      line: 33
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 128
+                      function: 'Laravel\Sanctum\Http\Middleware\{closure}'
+                      class: Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 103
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\sanctum\src\Http\Middleware\EnsureFrontendRequestsAreStateful.php'
+                      line: 34
+                      function: then
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 103
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 697
+                      function: then
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 672
+                      function: runRouteWithinStack
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 636
+                      function: runRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                      line: 625
+                      function: dispatchToRoute
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 166
+                      function: dispatch
+                      class: Illuminate\Routing\Router
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 128
+                      function: 'Illuminate\Foundation\Http\{closure}'
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                      line: 31
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                      line: 21
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                      line: 40
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                      line: 27
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                      line: 86
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                      line: 52
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Fruitcake\Cors\HandleCors
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php'
+                      line: 39
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 167
+                      function: handle
+                      class: Illuminate\Http\Middleware\TrustProxies
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                      line: 103
+                      function: 'Illuminate\Pipeline\{closure}'
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 141
+                      function: then
+                      class: Illuminate\Pipeline\Pipeline
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                      line: 110
+                      function: sendRequestThroughRouter
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                    -
+                      file: 'G:\XAMPP\htdocs\UAM\simple-crm\public\index.php'
+                      line: 52
+                      function: handle
+                      class: Illuminate\Foundation\Http\Kernel
+                      type: '->'
+                properties:
+                  message:
+                    type: string
+                    example: 'User does not have the right roles.'
+                  exception:
+                    type: string
+                    example: Spatie\Permission\Exceptions\UnauthorizedException
+                  file:
+                    type: string
+                    example: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\spatie\laravel-permission\src\Exceptions\UnauthorizedException.php'
+                  line:
+                    type: integer
+                    example: 22
+                  trace:
+                    type: array
+                    example:
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\spatie\laravel-permission\src\Middlewares\RoleMiddleware.php'
+                        line: 24
+                        function: forRoles
+                        class: Spatie\Permission\Exceptions\UnauthorizedException
+                        type: '::'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Spatie\Permission\Middlewares\RoleMiddleware
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php'
+                        line: 50
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Routing\Middleware\SubstituteBindings
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                        line: 127
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                        line: 103
+                        function: handleRequest
+                        class: Illuminate\Routing\Middleware\ThrottleRequests
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Middleware\ThrottleRequests.php'
+                        line: 55
+                        function: handleRequestUsingNamedLimiter
+                        class: Illuminate\Routing\Middleware\ThrottleRequests
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Routing\Middleware\ThrottleRequests
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Auth\Middleware\Authenticate.php'
+                        line: 44
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Auth\Middleware\Authenticate
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\sanctum\src\Http\Middleware\EnsureFrontendRequestsAreStateful.php'
+                        line: 33
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 128
+                        function: 'Laravel\Sanctum\Http\Middleware\{closure}'
+                        class: Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 103
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\sanctum\src\Http\Middleware\EnsureFrontendRequestsAreStateful.php'
+                        line: 34
+                        function: then
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 103
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 697
+                        function: then
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 672
+                        function: runRouteWithinStack
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 636
+                        function: runRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Routing\Router.php'
+                        line: 625
+                        function: dispatchToRoute
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 166
+                        function: dispatch
+                        class: Illuminate\Routing\Router
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 128
+                        function: 'Illuminate\Foundation\Http\{closure}'
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php'
+                        line: 31
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php'
+                        line: 21
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php'
+                        line: 40
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TransformsRequest
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\TrimStrings
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php'
+                        line: 27
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php'
+                        line: 86
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\fruitcake\laravel-cors\src\HandleCors.php'
+                        line: 52
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Fruitcake\Cors\HandleCors
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php'
+                        line: 39
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 167
+                        function: handle
+                        class: Illuminate\Http\Middleware\TrustProxies
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php'
+                        line: 103
+                        function: 'Illuminate\Pipeline\{closure}'
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 141
+                        function: then
+                        class: Illuminate\Pipeline\Pipeline
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php'
+                        line: 110
+                        function: sendRequestThroughRouter
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                      -
+                        file: 'G:\XAMPP\htdocs\UAM\simple-crm\public\index.php'
+                        line: 52
+                        function: handle
+                        class: Illuminate\Foundation\Http\Kernel
+                        type: '->'
+                    items:
+                      type: object
+      tags:
+        - 'User Management'
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the user.'
+        example: 11
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
+        name: user
+        description: 'Id of user in database'
+        example: 3
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: 'Authorization managment'
+    description: "\nAPI's for login, register and logout in basic way"
+  -
+    name: 'Company Managment'
+    description: ''
+  -
+    name: Endpoints
+    description: ''
+  -
+    name: 'User Management'
+    description: ''
